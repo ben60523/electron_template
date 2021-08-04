@@ -5,7 +5,7 @@ const path = require('path');
 const ModuleRules = require('./module.rules.js');
 
 module.exports = (env = {}, argv = {}) => ({
-  target: 'web',
+  target: 'electron-renderer',
   entry: { app: './renderer/index.js' },
   output: {
     path: path.resolve('./build'),
@@ -19,12 +19,9 @@ module.exports = (env = {}, argv = {}) => ({
     new HtmlWebpackPlugin({
       template: './renderer/index.html',
     }),
-    process.env.NODE_ENV === 'production'
-      ? new MiniCssExtractPlugin({
-        filename: '[name].css',
-        chunkFilename: '[id].css',
-      })
-      : null,
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css',
+    }),
   ].filter((plugin) => plugin !== null),
   resolve: {
     modules: [path.resolve('./node_modules')],

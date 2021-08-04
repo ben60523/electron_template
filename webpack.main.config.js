@@ -11,12 +11,17 @@ module.exports = {
     filename: '[name].js',
   },
   node: {
-    __dirname: true,
+    __dirname: false,
   },
-  externals: [{
-    'electron-reload': 'require(\'electron-reload\')',
-  }],
   resolve: {
     modules: [path.resolve(__dirname, 'node_modules'), 'node_modules'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.node$/,
+        loader: "node-loader",
+      },
+    ],
   },
 };

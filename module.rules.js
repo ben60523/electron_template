@@ -7,15 +7,33 @@ module.exports = (env, argv) => [
     use: ['babel-loader', 'eslint-loader'],
   },
   {
-    test: /\.(gif|png|jpe?g|svg)$/i,
+    test: /\.css$/,
     use: [
-      'file-loader',
       {
-        loader: 'image-webpack-loader',
+        loader: MiniCssExtractPlugin.loader,
+      },
+      {
+        loader: 'css-loader',
+      },
+    ],
+  },
+  {
+    test: /\.(png|jpe?g|gif|svg|webp)$/i,
+    use: [
+      {
+        loader: 'url-loader',
         options: {
-          disable: true,
+          outputPath: 'public/img/',
+          name: '[name].[ext]',
+          limit: 10240,
         },
       },
+      // {
+      //   loader: 'image-webpack-loader',
+      //   options: {
+      //     disable: process.env.NODE_ENV !== 'production',
+      //   },
+      // },
     ],
   },
   {
@@ -34,18 +52,6 @@ module.exports = (env, argv) => [
       },
       {
         loader: 'sass-loader',
-        options: {
-          sourceMap: true,
-        },
-      },
-    ],
-  },
-  {
-    test: /\.css$/,
-    use: [
-      argv.mode === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
-      {
-        loader: 'css-loader',
         options: {
           sourceMap: true,
         },
