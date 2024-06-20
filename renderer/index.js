@@ -1,6 +1,7 @@
 const React = require('react');
-const ReactDOM = require('react-dom');
+const { createRoot } = require('react-dom/client');
 const Wrapper = require('./react-src/wrapper.js');
 
 const index = document.getElementById('root');
-ReactDOM.render(<Wrapper />, index);
+const root = createRoot(index);
+root.render(<Wrapper />);
