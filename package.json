@@ -2,7 +2,7 @@
   "name": "electron_template",
   "version": "1.0.0",
   "description": "",
-  "main": "build/main.js",
+  "main": "entry.js",
   "scripts": {
     "watch": "npx concurrently \"npm:watch-*\"",
     "start": "npx electron .",

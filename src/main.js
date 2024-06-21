@@ -7,6 +7,7 @@ const rootPath = isDev ? path.resolve(__dirname, '../') : app.getAppPath();
 let mainWindow;
 
 
+
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
     width: 610,
@@ -18,14 +19,14 @@ app.on('ready', () => {
       nodeIntegration: false,
       contextIsolation: true, // protect against prototype pollution
       enableRemoteModule: false, // turn off remote
-      preload: path.join(rootPath, './build/preload.js'),
+      preload: path.join(rootPath, isDev ? './out/preload.js' : './prod/preload.js'),
     },
   });
 
   const menu = Menu.buildFromTemplate(setupMenu(mainWindow));
   Menu.setApplicationMenu(menu);
 
-  mainWindow.loadFile(path.resolve(rootPath, './build/index.html')).then(() => {
+  mainWindow.loadFile(path.resolve(rootPath, isDev ? './out/index.html' : './prod/index.html')).then(() => {
     mainWindow.show();
   });
 });
